@@ -7,13 +7,11 @@ class StorePicker extends Component {
 
   goToStore = (event) => {
     event.preventDefault();
-    console.log(this.state.storeName);
     this.props.history.push(`/store/${this.state.storeName}`);
   }
 
   handleStoreNameChange = (event) => {
     const value = event.target.value;
-
     this.setState(() => ({storeName: value}));
   }
   
