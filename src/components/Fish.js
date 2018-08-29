@@ -4,10 +4,6 @@ import { formatPrice } from '../utils/helpers';
 import { addOrder } from '../actions/orders';
 
 class Fish extends Component {
-  componentDidMount() {
-    console.log("FISH COMPONENT: ", this.props);
-    
-  }
   addToOrder = (event) => {
     event.preventDefault();
     const { orders, fishKey } = this.props;
@@ -37,8 +33,7 @@ class Fish extends Component {
   }
 }
 
-const mapStateToProps = ({ fishReducer, orderReducer }) => ({
-  fishes: fishReducer.fishes,
+const mapStateToProps = ({ orderReducer }) => ({
   orders: orderReducer.orders,
 })
 
