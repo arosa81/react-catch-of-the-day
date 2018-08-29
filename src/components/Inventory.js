@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
 import AddFishForm from './AddFishForm';
+import { connect } from 'react-redux';
+import { addFish } from '../actions/inventory';
+import sampleFishes from '../sample-fishes';
 
 class Inventory extends Component {
+
+  loadSampleFishes = () => {
+    console.log('load sample fishes');
+    this.props.loadSampleFishesDispatch(sampleFishes);
+  } 
+
   render() {
     return (
       <div className="inventory">
         <h2>Inventory</h2>
         <AddFishForm addFish={this.props.addFish} />
+        <button onClick={this.loadSampleFishes} >Load Sample Fishes</button>
       </div>
     )
   }
 }
 
-export default Inventory;
+function mapDispatchToProps(dispatch) {
+  return {
+    loadSampleFishesDispatch: (fish) => dispatch(addFish(fish)),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Inventory);
