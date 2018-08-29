@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addFish } from '../actions/inventory';
 
 class AddFishForm extends Component {
   state = {
@@ -46,4 +48,10 @@ class AddFishForm extends Component {
   }
 }
 
-export default AddFishForm;
+function mapDispatchToProps(dispatch) {
+  return {
+    addFish: (fish) => dispatch(addFish(fish)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AddFishForm);
