@@ -12,7 +12,6 @@ class Inventory extends Component {
   } 
 
   render() {
-    console.log("Inventory props", this.props);
     return (
       <div className="inventory">
         <h2>Inventory</h2>
@@ -23,7 +22,7 @@ class Inventory extends Component {
   }
 }
 
-const mapStatetoProps = ({ fishReducer }, props) => ({
+const mapStatetoProps = ({ fishReducer }) => ({
   fishes: fishReducer.fishes
 })
 

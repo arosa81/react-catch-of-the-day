@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { formatPrice } from '../utils/helpers';
+import { addOrder } from '../actions/orders';
 
 class Fish extends Component {
+  componentDidMount() {
+    console.log("FISH COMPONENT: ", this.props);
+    
+  }
+  addToOrder = (event) => {
+    event.preventDefault();
+    const { orders, fishKey } = this.props;
+    
+    orders[fishKey] = orders[fishKey]+1 || 1;
+    this.props.addOrder(orders);
+  }
+
   render() {
-    console.log("FISH PROP: ", this.props);
     const { name, image, desc, price, status } = this.props.fish;
+    const available = status === 'available';
 
     return (
       <li className="menu-fish">
@@ -15,14 +28,22 @@ class Fish extends Component {
           <span className="price">{formatPrice(price)}</span>
         </h3>
         <p>{desc}</p>
-        <button>Add to Cart</button>
+        {available
+          ? <button onClick={this.addToOrder}>Add to Order</button>
+          : <button disabled={status}>Sold Out!</button>
+        }
       </li>
     )
   }
 }
 
-const mapStateToProps = ({ fishReducer }) => ({
+const mapStateToProps = ({ fishReducer, orderReducer }) => ({
   fishes: fishReducer.fishes,
+  orders: orderReducer.orders,
 })
 
-export default connect(mapStateToProps)(Fish)
+const mapDispatchToProps = (dispatch) => ({
+  addOrder: (order) => dispatch(addOrder(order))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Fish)

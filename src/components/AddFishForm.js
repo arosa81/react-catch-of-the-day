@@ -48,10 +48,8 @@ class AddFishForm extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addFish: (fish) => dispatch(addFish(fish)),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  addFish: (fish) => dispatch(addFish(fish)),
+});
 
 export default connect(null, mapDispatchToProps)(AddFishForm);
