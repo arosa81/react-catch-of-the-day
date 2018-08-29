@@ -23,8 +23,7 @@ class AddFishForm extends Component {
 
   createFish = (event) => {
     event.preventDefault();
-    console.log(this.state);
-    this.props.addFish(this.state);
+    this.props.addFish({ fish: this.state });
   }
 
   render() {

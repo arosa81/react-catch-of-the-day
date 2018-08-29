@@ -12,15 +12,20 @@ class Inventory extends Component {
   } 
 
   render() {
+    console.log("Inventory props", this.props);
     return (
       <div className="inventory">
         <h2>Inventory</h2>
-        <AddFishForm addFish={this.props.addFish} />
+        <AddFishForm />
         <button onClick={this.loadSampleFishes} >Load Sample Fishes</button>
       </div>
     )
   }
 }
+
+const mapStatetoProps = ({ fishReducer }, props) => ({
+  fishes: fishReducer.fishes
+})
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -28,4 +33,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(Inventory);
+export default connect(mapStatetoProps, mapDispatchToProps)(Inventory);

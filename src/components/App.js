@@ -2,25 +2,32 @@ import React, { Component } from 'react'
 import Header from './Header';
 import Inventory from './Inventory';
 import Order from './Order';
+import { connect } from 'react-redux';
+import Fish from './Fish';
 
 class App extends Component {
-  fishes = {};
-
-  addFish = (fish) => {
-    this.fish = fish;
-  }
-
   render() {
+    const { fishes } = this.props;
+
     return (
       <div className="catch-of-the-day">
         <div className="menu">
           <Header tagLine="Fresh Seafood Market"/>
+          <ul className="fishes">
+            {Object.keys(fishes).map((fish) => (
+              <Fish key={fish} fish={fishes[fish]}/>
+            ))}
+          </ul>
         </div>
-        <Inventory addFish={this.addFish} />
+        <Inventory />
         <Order />
       </div>
     )
   }
 }
 
-export default App;
+const mapStateToProps = ({ fishReducer }) => ({
+  fishes: fishReducer.fishes,
+})
+
+export default connect(mapStateToProps)(App);

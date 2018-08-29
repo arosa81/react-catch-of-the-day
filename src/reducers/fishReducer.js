@@ -1,7 +1,7 @@
 import { ADD_FISH } from '../actions/inventory';
 
 const initialState = {
-  fish: {}
+  fishes: {}
 }
 
 export default (state=initialState, action) => {
@@ -9,7 +9,7 @@ export default (state=initialState, action) => {
     case ADD_FISH:
       return {
         ...state,
-        fish: action.fish
+        fishes: action.fish
       }
     default:
       return state;
