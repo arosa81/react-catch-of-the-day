@@ -6,10 +6,7 @@ import sampleFishes from '../sample-fishes';
 
 class Inventory extends Component {
 
-  loadSampleFishes = () => {
-    console.log('load sample fishes');
-    this.props.loadSampleFishesDispatch(sampleFishes);
-  } 
+  loadSampleFishes = () => this.props.loadSampleFishesDispatch(sampleFishes); 
 
   render() {
     return (
