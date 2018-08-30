@@ -4,11 +4,10 @@ import { formatPrice } from '../utils/helpers';
 import { addOrder } from '../actions/orders';
 
 class Fish extends Component {
-  addToOrder = (event) => {
-    event.preventDefault();
-    const { orders, fishKey } = this.props;
+  addToOrder = () => {
+    const { orders, index } = this.props;
     
-    orders[fishKey] = orders[fishKey]+1 || 1;
+    orders[index] = orders[index]+1 || 1;
     this.props.addOrder(orders);
   }
 

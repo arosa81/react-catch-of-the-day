@@ -15,7 +15,7 @@ class App extends Component {
           <Header tagLine="Fresh Seafood Market"/>
           <ul className="fishes">
             {Object.keys(fishes).map((fish) => (
-              <Fish key={fish} fish={fishes[fish]} fishKey={fish} />
+              <Fish key={fish} fish={fishes[fish]} index={fish} />
             ))}
           </ul>
         </div>
