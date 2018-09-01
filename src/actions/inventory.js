@@ -1,6 +1,6 @@
 export const ADD_FISH = 'ADD_FISH';
 
-export const addFish = (fish) => ({
+export const addFish = (fishes) => ({
   type: ADD_FISH,
-  fish,
+  fishes,
 });

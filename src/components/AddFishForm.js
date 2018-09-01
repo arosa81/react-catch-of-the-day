@@ -8,7 +8,7 @@ class AddFishForm extends Component {
     price: 0,
     status: 'available',
     desc: '',
-    image: '',
+    image: '/images/Alex_Swim.jpg',
   }
 
   handleNameChange = (event) => this.setState({ name: event.target.value });
@@ -23,7 +23,8 @@ class AddFishForm extends Component {
 
   createFish = (event) => {
     event.preventDefault();
-    this.props.addFish({ fish: this.state });
+    let fishObj = `fish${Date.now()}`;
+    this.props.addNewFish({ fish: { ...this.state } });
   }
 
   render() {
@@ -49,7 +50,7 @@ class AddFishForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  addFish: (fish) => dispatch(addFish(fish)),
+  addNewFish: (fish) => dispatch(addFish(fish)),
 });
 
 export default connect(null, mapDispatchToProps)(AddFishForm);
