@@ -9,7 +9,7 @@ class Order extends Component {
        
     const isAvailable = fish.status === 'available';
 
-    return !isAvailable ? <li>Sorry {fish ? fish.name : fish} is no longer available</li>
+    return !isAvailable ? <li key={order}>Sorry {fish ? fish.name : fish} is no longer available</li>
       : <li key={order}>
           {count} lbs {fish.name}
           {formatPrice(fish.price)}
