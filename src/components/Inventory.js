@@ -5,8 +5,7 @@ import { addFish } from '../actions/inventory';
 import sampleFishes from '../sample-fishes';
 
 class Inventory extends Component {
-
-  loadSampleFishes = () => this.props.loadSampleFishesDispatch(sampleFishes); 
+  loadSampleFishes = () => this.props.loadSampleFishesDispatch(sampleFishes)
 
   render() {
     return (

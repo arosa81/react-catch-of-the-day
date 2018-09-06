@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import { formatPrice } from '../utils/helpers'; 
 
 class Order extends Component {
+  componentDidUpdate() {
+    localStorage.setItem(this.props.match.params.storeID, JSON.stringify(this.props.orders));
+  }
+
   renderOrderList = (order) => {
     const { fishes, orders } = this.props; 
     const fish = fishes[order], count = orders[order]; 
        
-    const isAvailable = fish.status === 'available';
+    const isAvailable = fish && fish.status === 'available';
+    if (!fish) return null;
 
     return !isAvailable ? <li key={order}>Sorry {fish ? fish.name : fish} is no longer available</li>
       : <li key={order}>
@@ -15,9 +20,10 @@ class Order extends Component {
           {formatPrice(fish.price)}
         </li>
   }
+
   render() {
     const { total, ordersArray } = this.props;
-    
+
     return (
       <div className="order-wrap">
         <h2>Order</h2>
@@ -32,7 +38,7 @@ class Order extends Component {
   }
 }
 
-const mapStateToProps = ({ fishReducer, orderReducer }) => {
+const mapStateToProps = ({ fishReducer, orderReducer, match }) => {
   const ordersArray = Object.keys(orderReducer.orders);
   
   const total = ordersArray.reduce((prevTotal, key) => {

@@ -23,7 +23,7 @@ class AddFishForm extends Component {
 
   createFish = (event) => {
     event.preventDefault();
-    let fishObj = `fish${Date.now()}`;
+    //let fishObj = `fish${Date.now()}`;
     this.props.addNewFish({ fish: { ...this.state } });
   }
 
