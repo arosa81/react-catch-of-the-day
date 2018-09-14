@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import AddFishForm from './AddFishForm';
+import EditFishForm from './EditFishForm';
 import { connect } from 'react-redux';
 import { addFish } from '../actions/inventory';
-import sampleFishes from '../sample-fishes';
+// import sampleFishes from '../sample-fishes';
 
 class Inventory extends Component {
-  loadSampleFishes = () => this.props.loadSampleFishesDispatch(sampleFishes)
+  // loadSampleFishes = () => this.props.loadSampleFishesDispatch(sampleFishes)
 
   render() {
     return (
       <div className="inventory">
         <h2>Inventory</h2>
+        {Object.keys(this.props.fishes).map((fish) => (
+          <EditFishForm key={fish} fish={this.props.fishes[fish]}/>   
+        ))}
         <AddFishForm />
-        <button onClick={this.loadSampleFishes} >Load Sample Fishes</button>
+        {/* <button onClick={this.loadSampleFishes} >Load Sample Fishes</button> */}
       </div>
     )
   }
