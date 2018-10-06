@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from './components/Router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import Router from './components/Router';
 import reducers from './reducers/reducers';
-import "./css/style.css"
+import './css/style.css';
 
 const store = createStore(
   reducers,
