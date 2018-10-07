@@ -4,11 +4,8 @@ import { formatPrice } from '../utils/helpers';
 
 class Order extends Component {
   componentDidUpdate() {
-    console.log(this.props.match);
-    localStorage.setItem(
-      this.props.match.params.storeID,
-      JSON.stringify(this.props.orders)
-    );
+    const { match, orders } = this.props;
+    localStorage.setItem(match.params.storeID, JSON.stringify(orders));
   }
 
   renderOrderList = order => {
@@ -19,11 +16,8 @@ class Order extends Component {
     const isAvailable = fish && fish.status === 'available';
     /* Make sure fish is loaded before we continue */
     if (!fish) return null; // To render out nothing
-
     return !isAvailable ? (
-      <li key={order}>
-        Sorry {fish ? fish.name : fish} is no longer available
-      </li>
+      <li key={order}>Sorry {fish ? fish.name : fish} is no longer available</li>
     ) : (
       <li key={order}>
         {count} lbs {fish.name}

@@ -23,9 +23,9 @@ class AddFishForm extends Component {
 
   createFish = event => {
     event.preventDefault();
-    const { addNewFish } = this.props;
+    const { addFish } = this.props;
     // let fishObj = `fish${Date.now()}`;
-    addNewFish({ fish: { ...this.state } });
+    addFish({ fish: { ...this.state } });
   };
 
   render() {
@@ -77,7 +77,7 @@ class AddFishForm extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addNewFish: fish => dispatch(addFish(fish)),
+  addFish: fish => dispatch(addFish(fish)),
 });
 
 export default connect(

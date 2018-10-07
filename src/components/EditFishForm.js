@@ -16,14 +16,20 @@ class EditFishForm extends Component {
   }
 
   handleChange = event => {
-    this.setState({ name: event.target.value });
+    const { fish } = this.props;
+    this.setState({ ...fish, [event.target.name]: event.target.value });
+  };
+
+  updateFishFunc = event => {
+    event.preventDefault();
+    const { updateFish, fishID } = this.props;
+    updateFish({ [fishID]: { ...this.state } });
   };
 
   render() {
     const { name, price, status, desc, image } = this.state;
-
     return (
-      <form className="fish-edit">
+      <form className="fish-edit" onSubmit={this.updateFishFunc}>
         <input
           name="name"
           type="text"
@@ -69,7 +75,7 @@ class EditFishForm extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  editExistingFish: fish => dispatch(editFish(fish)),
+  updateFish: fish => dispatch(editFish(fish)),
 });
 
 export default connect(
