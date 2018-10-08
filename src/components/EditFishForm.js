@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editFish } from '../actions/inventory';
+import { editFish, deleteFish } from '../actions/inventory';
 
 class EditFishForm extends Component {
   constructor(props) {
@@ -26,10 +26,20 @@ class EditFishForm extends Component {
     updateFish({ [fishID]: { ...this.state } });
   };
 
+  deleteFishFunc = event => {
+    event.preventDefault();
+    const { removeFish, fishID, fishes } = this.props;
+    delete fishes[fishID];
+    removeFish({ fishes });
+  };
+
   render() {
     const { name, price, status, desc, image } = this.state;
     return (
       <form className="fish-edit" onSubmit={this.updateFishFunc}>
+        <button type="button" onClick={this.deleteFishFunc}>
+          Delete Fish
+        </button>
         <input
           name="name"
           type="text"
@@ -74,11 +84,16 @@ class EditFishForm extends Component {
   }
 }
 
+const mapStateToProps = ({ fishReducer }) => ({
+  fishes: fishReducer.fishes,
+});
+
 const mapDispatchToProps = dispatch => ({
   updateFish: fish => dispatch(editFish(fish)),
+  removeFish: fish => dispatch(deleteFish(fish)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(EditFishForm);
