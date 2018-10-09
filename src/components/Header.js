@@ -5,7 +5,7 @@ class Header extends Component {
     return (
       <header className="top">
         <h1>
-          Catch 
+          Catch
           <span className="ofThe">
             <span className="of">of</span>
             <span className="the">the</span>
@@ -16,7 +16,7 @@ class Header extends Component {
           <span>{this.props.tagLine}</span>
         </h3>
       </header>
-    )
+    );
   }
 }
 

@@ -3,18 +3,18 @@ import React, { Component, Fragment } from 'react';
 class StorePicker extends Component {
   state = {
     storeName: '',
-  }
+  };
 
-  goToStore = (event) => {
+  goToStore = event => {
     event.preventDefault();
     this.props.history.push(`/store/${this.state.storeName}`);
-  }
+  };
 
-  handleStoreNameChange = (event) => {
-    const value = event.target.value;
-    this.setState(() => ({storeName: value}));
-  }
-  
+  handleStoreNameChange = event => {
+    const { value } = event.target;
+    this.setState(() => ({ storeName: value }));
+  };
+
   render() {
     return (
       <Fragment>
@@ -30,7 +30,7 @@ class StorePicker extends Component {
           <button type="submit">Visit Store</button>
         </form>
       </Fragment>
-    )
+    );
   }
 }
 

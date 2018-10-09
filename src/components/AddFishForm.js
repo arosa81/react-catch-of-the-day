@@ -11,25 +11,20 @@ class AddFishForm extends Component {
     image: '/images/Alex_Swim.jpg',
   };
 
-  handleNameChange = event => this.setState({ name: event.target.value });
-
-  handlePriceChange = event => this.setState({ price: parseFloat(event.target.value) });
-
-  handleStatusChange = event => this.setState({ status: event.target.value });
-
-  handleDescChange = event => this.setState({ desc: event.target.value });
-
-  handleImageChange = event => this.setState({ image: event.target.value });
+  handleChange = event =>
+    event.target.name === 'price'
+      ? this.setState({ [event.target.name]: parseFloat(event.target.value) })
+      : this.setState({ [event.target.name]: event.target.value });
 
   createFish = event => {
     event.preventDefault();
-    const { addFish } = this.props;
-    // let fishObj = `fish${Date.now()}`;
-    addFish({ fish: { ...this.state } });
+    const { addFish, numFishes } = this.props;
+    addFish({ [`fish${numFishes}`]: { ...this.state } });
   };
 
   render() {
     const { name, price, status, desc, image } = this.state;
+
     return (
       <form className="fish-edit" onSubmit={this.createFish}>
         <input
@@ -37,21 +32,21 @@ class AddFishForm extends Component {
           type="text"
           placeholder="Name"
           value={name}
-          onChange={this.handleNameChange}
+          onChange={this.handleChange}
         />
         <input
           name="price"
           type="text"
           placeholder="Price"
           value={price}
-          onChange={this.handlePriceChange}
+          onChange={this.handleChange}
         />
         <select
           name="status"
           type="text"
           placeholder="Status"
           value={status}
-          onChange={this.handleStatusChange}
+          onChange={this.handleChange}
         >
           <option value="available">Fresh!</option>
           <option value="unavailable">Sold Out!</option>
@@ -61,14 +56,14 @@ class AddFishForm extends Component {
           type="text"
           placeholder="Desc"
           value={desc}
-          onChange={this.handleDescChange}
+          onChange={this.handleChange}
         />
         <input
           name="image"
           type="text"
           placeholder="Image"
           value={image}
-          onChange={this.handleImageChange}
+          onChange={this.handleChange}
         />
         <button type="submit">Add Fish</button>
       </form>
@@ -76,11 +71,16 @@ class AddFishForm extends Component {
   }
 }
 
+const mapStateToProps = ({ fishReducer }) => {
+  const numFishes = Object.keys(fishReducer.fishes).length + 1;
+  return { numFishes };
+};
+
 const mapDispatchToProps = dispatch => ({
   addFish: fish => dispatch(addFish(fish)),
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AddFishForm);
