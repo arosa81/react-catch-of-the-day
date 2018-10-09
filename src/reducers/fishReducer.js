@@ -9,7 +9,13 @@ export default (state = initialState, action) => {
     case ADD_FISH:
     case EDIT_FISH:
     case DELETE_FISH:
-      console.log('action: ', action);
+      console.log('action: ', {
+        ...state,
+        fishes: {
+          ...state.fishes,
+          ...action.fishes,
+        },
+      });
       return {
         ...state,
         fishes: {

@@ -16,10 +16,20 @@ class AddFishForm extends Component {
       ? this.setState({ [event.target.name]: parseFloat(event.target.value) })
       : this.setState({ [event.target.name]: event.target.value });
 
+  resetState = () =>
+    this.setState({
+      name: '',
+      price: 0,
+      status: 'available',
+      desc: '',
+      image: '/images/Alex_Swim.jpg',
+    });
+
   createFish = event => {
     event.preventDefault();
     const { addFish, numFishes } = this.props;
     addFish({ [`fish${numFishes}`]: { ...this.state } });
+    this.resetState();
   };
 
   render() {
