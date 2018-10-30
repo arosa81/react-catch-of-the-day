@@ -6,7 +6,7 @@ import Order from './Order';
 import Fish from './Fish';
 import base from '../base';
 import { addFish } from '../actions/inventory';
-import { addOrder } from '../actions/orders';
+import { addOrder, deleteOrder } from '../actions/orders';
 import sampleFishes from '../sample-fishes';
 
 class App extends Component {
@@ -61,6 +61,7 @@ const mapStateToProps = ({ fishReducer, orderReducer }) => ({
 const mapDispatchToProps = dispatch => ({
   loadSampleFishesDispatch: fish => dispatch(addFish(fish)),
   addOrder: order => dispatch(addOrder(order)),
+  removeOrder: order => dispatch(deleteOrder(order)),
 });
 
 export default connect(

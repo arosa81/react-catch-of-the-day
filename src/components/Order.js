@@ -22,6 +22,7 @@ class Order extends Component {
       <li key={order}>
         {count} lbs {fish.name}
         {formatPrice(fish.price)}
+        <button type="button">&times;</button>
       </li>
     );
   };
@@ -33,7 +34,6 @@ class Order extends Component {
       <div className="order-wrap">
         <h2>Order</h2>
         <ul className="order">{ordersArray.map(this.renderOrderList)}</ul>
-        <button type="button">&times;</button>
         <div className="total">
           <strong>{formatPrice(total)}</strong>
         </div>

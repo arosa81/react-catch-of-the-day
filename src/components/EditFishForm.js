@@ -5,8 +5,9 @@ import { editFish, deleteFish } from '../actions/inventory';
 class EditFishForm extends Component {
   constructor(props) {
     super(props);
-    const { name, price, status, desc, image } = props.fish;
+    const { fishID, name, price, status, desc, image } = props.fish;
     this.state = {
+      fishID,
       name,
       price,
       status,
@@ -17,20 +18,27 @@ class EditFishForm extends Component {
 
   handleChange = event => {
     const { fish } = this.props;
-    this.setState({ ...fish, [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
+    console.log('----------------', this.state);
   };
 
   updateFishFunc = event => {
     event.preventDefault();
     const { updateFish, fishID } = this.props;
+    console.log('EDITING FISH: ', this.props, fishID);
     updateFish({ [fishID]: { ...this.state } });
+    // this.setState(state => ({
+    //   books: state.books.filter(b => b.id !== book.id).concat([book])
+    // }))
   };
 
   deleteFishFunc = event => {
     event.preventDefault();
     const { removeFish, fishID, fishes } = this.props;
+    fishes[fishID] = undefined;
+    console.log('AFTER DELETION OF THIS FISH', fishes);
     delete fishes[fishID];
-    removeFish({ fishes });
+    removeFish(fishes);
   };
 
   render() {

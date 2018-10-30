@@ -4,6 +4,7 @@ import { addFish } from '../actions/inventory';
 
 class AddFishForm extends Component {
   state = {
+    fishID: 0,
     name: '',
     price: 0,
     status: 'available',
@@ -16,8 +17,15 @@ class AddFishForm extends Component {
       ? this.setState({ [event.target.name]: parseFloat(event.target.value) })
       : this.setState({ [event.target.name]: event.target.value });
 
+  handleFishIDChange = () => {
+    const { numFishes } = this.props;
+    // TODO: Add check for all fields filled
+    return this.setState({ fishID: numFishes + 1 });
+  };
+
   resetState = () =>
     this.setState({
+      fishID: 0,
       name: '',
       price: 0,
       status: 'available',
@@ -27,8 +35,12 @@ class AddFishForm extends Component {
 
   createFish = event => {
     event.preventDefault();
-    const { addFish, numFishes } = this.props;
-    addFish({ [`fish${numFishes}`]: { ...this.state } });
+    const { addFishDispatch, numFishes } = this.props;
+    addFishDispatch({
+      [`fish${numFishes + 1}`]: {
+        ...this.state,
+      },
+    });
     this.resetState();
   };
 
@@ -75,19 +87,23 @@ class AddFishForm extends Component {
           value={image}
           onChange={this.handleChange}
         />
-        <button type="submit">Add Fish</button>
+        <button type="submit" onClick={this.handleFishIDChange}>
+          Add Fish
+        </button>
       </form>
     );
   }
 }
 
 const mapStateToProps = ({ fishReducer }) => {
-  const numFishes = Object.keys(fishReducer.fishes).length + 1;
-  return { numFishes };
+  const numFishes = Object.keys(fishReducer.fishes).length;
+  return {
+    numFishes,
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
-  addFish: fish => dispatch(addFish(fish)),
+  addFishDispatch: fish => dispatch(addFish(fish)),
 });
 
 export default connect(

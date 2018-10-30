@@ -14,5 +14,5 @@ export const editFish = fishes => ({
 
 export const deleteFish = fishes => ({
   type: DELETE_FISH,
-  fishes,
+  fishes, // : Object.keys(fishes).filter(fish => fish !== undefined),
 });
