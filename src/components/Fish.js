@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { formatPrice } from '../utils/helpers';
 import { addOrder } from '../actions/orders';
 
 class Fish extends Component {
   addToOrder = () => {
-    const { orders, index, addOrder } = this.props;
+    const { orders, index, addFishOrder } = this.props;
     orders[index] = orders[index] + 1 || 1;
-    addOrder(orders);
+    addFishOrder(orders);
   };
 
   render() {
-    const { name, image, desc, price, status } = this.props.fish;
+    const { fish } = this.props;
+    const { name, image, desc, price, status } = fish;
     const available = status === 'available';
 
     return (
@@ -41,10 +43,17 @@ const mapStateToProps = ({ orderReducer }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addOrder: order => dispatch(addOrder(order)),
+  addFishOrder: order => dispatch(addOrder(order)),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Fish);
+
+Fish.propTypes = {
+  orders: PropTypes.object.isRequired,
+  index: PropTypes.string,
+  fish: PropTypes.object.isRequired,
+  addFishOrder: PropTypes.func,
+};

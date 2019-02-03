@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { addFish } from '../actions/inventory';
 
 class AddFishForm extends Component {
@@ -36,6 +37,7 @@ class AddFishForm extends Component {
   createFish = event => {
     event.preventDefault();
     const { addFishDispatch, numFishes } = this.props;
+    this.handleFishIDChange();
     addFishDispatch({
       [`fish${numFishes + 1}`]: {
         ...this.state,
@@ -87,9 +89,7 @@ class AddFishForm extends Component {
           value={image}
           onChange={this.handleChange}
         />
-        <button type="submit" onClick={this.handleFishIDChange}>
-          Add Fish
-        </button>
+        <button type="submit">Add Fish</button>
       </form>
     );
   }
@@ -110,3 +110,8 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(AddFishForm);
+
+AddFishForm.propTypes = {
+  numFishes: PropTypes.number.isRequired,
+  addFishDispatch: PropTypes.func.isRequired,
+};

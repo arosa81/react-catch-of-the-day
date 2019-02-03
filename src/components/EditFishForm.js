@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { editFish, deleteFish } from '../actions/inventory';
 
 class EditFishForm extends Component {
@@ -17,19 +18,20 @@ class EditFishForm extends Component {
   }
 
   handleChange = event => {
-    const { fish } = this.props;
+    // const { fish } = this.props;
     this.setState({ [event.target.name]: event.target.value });
-    console.log('----------------', this.state);
+    // this.setState(this.updateStateFunc);
   };
+
+  updateStateFunc = (state, props) => ({
+    [state.target.name]: props.target.value,
+  });
 
   updateFishFunc = event => {
     event.preventDefault();
-    const { updateFish, fishID } = this.props;
-    console.log('EDITING FISH: ', this.props, fishID);
-    updateFish({ [fishID]: { ...this.state } });
-    // this.setState(state => ({
-    //   books: state.books.filter(b => b.id !== book.id).concat([book])
-    // }))
+    const { updateFish } = this.props;
+    const { fishID } = this.state;
+    updateFish({ [`fish${fishID}`]: { ...this.state } });
   };
 
   deleteFishFunc = event => {
@@ -43,6 +45,7 @@ class EditFishForm extends Component {
 
   render() {
     const { name, price, status, desc, image } = this.state;
+
     return (
       <form className="fish-edit" onSubmit={this.updateFishFunc}>
         <button type="button" onClick={this.deleteFishFunc}>
@@ -86,7 +89,7 @@ class EditFishForm extends Component {
           value={image}
           onChange={this.handleChange}
         />
-        <button type="submit">Add Fish</button>
+        <button type="submit">Update Fish</button>
       </form>
     );
   }
@@ -105,3 +108,12 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(EditFishForm);
+
+EditFishForm.propTypes = {
+  fish: PropTypes.object.isRequired,
+  fishes: PropTypes.object.isRequired,
+  fishID: PropTypes.number,
+  // key: PropTypes.object,
+  updateFish: PropTypes.func.isRequired,
+  removeFish: PropTypes.func.isRequired,
+};

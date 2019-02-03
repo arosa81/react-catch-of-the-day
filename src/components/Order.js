@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { formatPrice } from '../utils/helpers';
 
 class Order extends Component {
@@ -12,7 +13,6 @@ class Order extends Component {
     const { fishes, orders } = this.props;
     const fish = fishes[order];
     const count = orders[order];
-
     const isAvailable = fish && fish.status === 'available';
     /* Make sure fish is loaded before we continue */
     if (!fish) return null; // To render out nothing
@@ -22,7 +22,7 @@ class Order extends Component {
       <li key={order}>
         {count} lbs {fish.name}
         {formatPrice(fish.price)}
-        <button type="button">&times;</button>
+        <button type="button"> &times;</button>
       </li>
     );
   };
@@ -64,3 +64,11 @@ const mapStateToProps = ({ fishReducer, orderReducer }) => {
 };
 
 export default connect(mapStateToProps)(Order);
+
+Order.propTypes = {
+  match: PropTypes.object,
+  orders: PropTypes.object,
+  fishes: PropTypes.object,
+  total: PropTypes.number,
+  ordersArray: PropTypes.array,
+};

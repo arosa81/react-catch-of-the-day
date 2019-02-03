@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import AddFishForm from './AddFishForm';
 import EditFishForm from './EditFishForm';
 import { addFish } from '../actions/inventory';
@@ -12,7 +13,7 @@ class Inventory extends Component {
     return (
       <div className="inventory">
         <h2>Inventory</h2>
-        {Object.keys(fishes).map((fish, index) => (
+        {Object.keys(fishes).map(fish => (
           <EditFishForm key={fish} fish={fishes[fish]} />
         ))}
         <AddFishForm />
@@ -36,3 +37,7 @@ export default connect(
   mapStatetoProps,
   mapDispatchToProps
 )(Inventory);
+
+Inventory.propTypes = {
+  fishes: PropTypes.object.isRequired,
+};
