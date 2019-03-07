@@ -18,9 +18,7 @@ class EditFishForm extends Component {
   }
 
   handleChange = event => {
-    // const { fish } = this.props;
     this.setState({ [event.target.name]: event.target.value });
-    // this.setState(this.updateStateFunc);
   };
 
   updateStateFunc = (state, props) => ({
@@ -36,11 +34,11 @@ class EditFishForm extends Component {
 
   deleteFishFunc = event => {
     event.preventDefault();
-    const { removeFish, fishID, fishes } = this.props;
-    fishes[fishID] = undefined;
-    console.log('AFTER DELETION OF THIS FISH', fishes);
-    delete fishes[fishID];
-    removeFish(fishes);
+    const { removeFish, fishes } = this.props;
+    const { fishID } = this.state;
+    fishes[`fish${fishID}`] = undefined;
+    delete fishes[`fish${fishID}`];
+    removeFish(`fish${fishID}`);
   };
 
   render() {
