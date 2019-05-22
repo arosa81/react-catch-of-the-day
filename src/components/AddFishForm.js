@@ -4,46 +4,45 @@ import PropTypes from 'prop-types';
 import { addFish } from '../actions/inventory';
 
 class AddFishForm extends Component {
-  state = {
-    fishID: 0,
-    name: '',
-    price: 0,
-    status: 'available',
-    desc: '',
-    image: '/images/Alex_Swim.jpg',
-  };
-
-  handleChange = event =>
-    event.target.name === 'price'
-      ? this.setState({ [event.target.name]: parseFloat(event.target.value) })
-      : this.setState({ [event.target.name]: event.target.value });
-
-  handleFishIDChange = () => {
-    const { numFishes } = this.props;
-    // TODO: Add check for all fields filled
-    return this.setState({ fishID: numFishes + 1 });
-  };
-
-  resetState = () =>
-    this.setState({
+  constructor(props) {
+    super(props);
+    this.state = {
       fishID: 0,
       name: '',
       price: 0,
       status: 'available',
       desc: '',
       image: '/images/Alex_Swim.jpg',
+    };
+  }
+
+  resetState = () =>
+    this.setState({
+      fishID: 0,
+      name: '',
+      image: '/images/Alex_Swim.jpg',
+      desc: '',
+      price: 0,
+      status: 'available',
     });
+
+  handleChange = event =>
+    event.target.name === 'price'
+      ? this.setState({ [event.target.name]: parseFloat(event.target.value) })
+      : this.setState({ [event.target.name]: event.target.value });
 
   createFish = event => {
     event.preventDefault();
     const { addFishDispatch, numFishes } = this.props;
-    this.handleFishIDChange();
-    addFishDispatch({
-      [`fish${numFishes + 1}`]: {
-        ...this.state,
-      },
+    const currentFishID = numFishes + 1;
+    this.setState({ fishID: currentFishID }, () => {
+      addFishDispatch({
+        [`fish${currentFishID}`]: {
+          ...this.state,
+        },
+      });
+      return this.resetState(); // clearing form UI
     });
-    this.resetState();
   };
 
   render() {

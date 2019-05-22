@@ -110,7 +110,7 @@ export default connect(
 EditFishForm.propTypes = {
   fish: PropTypes.object.isRequired,
   fishes: PropTypes.object.isRequired,
-  fishID: PropTypes.number,
+  // fishID: PropTypes.number,
   // key: PropTypes.object,
   updateFish: PropTypes.func.isRequired,
   removeFish: PropTypes.func.isRequired,
